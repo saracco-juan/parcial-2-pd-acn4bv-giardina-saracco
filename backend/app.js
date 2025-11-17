@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -6,33 +8,55 @@ const port = 3000;
 // Middleware para parsear JSON
 app.use(express.json());
 
-const tipografias = [
-  { "id": 1, "nombre": "Sansation" },
-  { "id": 2, "nombre": "Playfair Display" },
-  { "id": 3, "nombre": "Roboto" },
-  { "id": 4, "nombre": "Montserrat" }
-]
+
+const tipografiasPath = path.join(__dirname, 'data', 'tipografias.json');
 
 app.get('/', (req, res) => {
   res.send('Hola soy juan:)');
 });
 
-app.get('/api/fonts', (req, res) => {
-  res.json(tipografias);
+
+app.get('/api/fonts', async (req, res) => {
+  try {
+
+    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
+
+    const tipografias = JSON.parse(data);
+
+    res.json(tipografias);
+  } catch (error) {
+
+    res.status(500).json({ message: "Error al leer las tipografías", error: error.message });
+    
+  }
 });
 
-app.post('/api/fonts', (req, res) => {
 
-  try{
-
-    const nuevaTipografia = { "id": tipografias.length + 1, "nombre": `${req.body.nombre}` };
+app.post('/api/fonts', async(req, res) => {
+  try {
+    
+    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
+    const tipografias = JSON.parse(data);
+    
+    
+    const nuevaTipografia = {
+      id: tipografias.length + 1,
+      name: req.body.name,
+      size: req.body.size,
+      style: req.body.style,
+      weight: req.body.weight
+    };
+    
+    
     tipografias.push(nuevaTipografia);
+    
+    
+    await fs.promises.writeFile(tipografiasPath, JSON.stringify(tipografias, null, 2));
+    
     res.status(201).json(nuevaTipografia);
-
-  }catch(error){
-    res.status(400).json({ message: "Error al agregar la tipografia", error: error.message });
+  } catch (error) {
+    res.status(400).json({ message: "Error al agregar la tipografía", error: error.message });
   }
-
 });
 
 app.listen(port, () => {
