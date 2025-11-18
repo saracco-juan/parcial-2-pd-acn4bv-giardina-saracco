@@ -158,12 +158,6 @@ const FormAddFont = () => {
             >
               Agregar Tipografía
             </button>
-            <button 
-              type="reset"
-              className="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium py-3 rounded-lg transition-colors"
-            >
-              Limpiar Formulario
-            </button>
           </div>
         </form>
 
