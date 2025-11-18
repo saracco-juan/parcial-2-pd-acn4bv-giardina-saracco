@@ -1,5 +1,5 @@
 const express = require('express');
-
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
@@ -9,6 +9,8 @@ const { db } = require('./firebase');
 const app = express();
 const port = 3000;
 
+
+app.use(cors());
 
 // Middleware para parsear JSON
 app.use(express.json());
