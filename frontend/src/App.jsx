@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Dashboard from './components/dashboard'
 
 
 
@@ -8,7 +9,7 @@ function App() {
 
   return (
     <>
-      <h1>Hola</h1>
+      <Dashboard/>
     </>
   )
 }
