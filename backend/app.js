@@ -57,7 +57,8 @@ app.post('/api/fonts', async(req, res) => {
       name: req.body.name,
       size: req.body.size,
       style: req.body.style,
-      weight: req.body.weight
+      weight: req.body.weight,
+      category: req.body.category
     };
     
     
