@@ -1,1 +1,58 @@
-[{"id":1,"name":"Sansation","size":"16px","style":"normal","weight":"normal","category":"moderna"},{"id":2,"name":"Playfair Display","size":"16px","style":"normal","weight":"normal","category":"moderna"},{"id":3,"name":"Roboto","size":"16px","style":"normal","weight":"normal","category":"moderna"},{"id":4,"name":"Montserrat","size":"16px","style":"normal","weight":"normal","category":"moderna"},{"id":5,"name":"Arial","size":"18px","style":"italic","weight":"bold","category":"moderna"},{"id":6,"name":"Comic Sans","size":"16px","style":"italic","weight":"bold","category":"moderna"},{"id":7,"name":"Oswald","size":"16px","style":"italic","weight":"bold","category":"moderna"},{"id":8,"name":"prueba","size":"16px","style":"italic","weight":"bold","category":"moderna"},{"id":9,"name":"Prueba 3","size":"16px","style":"italica","weight":"bolder","category":"Clasica"},{"id":10,"name":"Prueba 4","size":"19px","style":"normal","weight":"normal","category":"Elegante"},{"id":11,"name":"Prueba 6","size":"10px","style":"subrayada","weight":"normal","category":"Moderna"},{"id":12,"name":"Prueba 7","size":"14px","style":"normal","weight":"normal","category":"Elegante"}]
+[
+  {
+    "id": 1,
+    "name": "Sansation",
+    "size": "16px",
+    "style": "normal",
+    "weight": "normal",
+    "category": "moderna"
+  },
+  {
+    "id": 2,
+    "name": "Playfair Display",
+    "size": "16px",
+    "style": "normal",
+    "weight": "normal",
+    "category": "moderna"
+  },
+  {
+    "id": 3,
+    "name": "Roboto",
+    "size": "16px",
+    "style": "normal",
+    "weight": "normal",
+    "category": "moderna"
+  },
+  {
+    "id": 4,
+    "name": "Montserrat",
+    "size": "16px",
+    "style": "normal",
+    "weight": "normal",
+    "category": "moderna"
+  },
+  {
+    "id": 5,
+    "name": "Arial",
+    "size": "18px",
+    "style": "italic",
+    "weight": "bold",
+    "category": "moderna"
+  },
+  {
+    "id": 6,
+    "name": "Comic Sans",
+    "size": "16px",
+    "style": "italic",
+    "weight": "bold",
+    "category": "moderna"
+  },
+  {
+    "id": 7,
+    "name": "Oswald",
+    "size": "16px",
+    "style": "italic",
+    "weight": "bold",
+    "category": "moderna"
+  }
+]
