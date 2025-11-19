@@ -33,12 +33,6 @@ const FormAddFont = ({ onAddFont }) => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
-    // Validar que no haya campos vacíos
-    if (!name || !size || !style || !weight || !category) {
-      alert('Por favor completa todos los campos');
-      return;
-    }
-
     const fontData = {
       name,
       size: size + 'px',
@@ -56,9 +50,8 @@ const FormAddFont = ({ onAddFont }) => {
       setWeight('');
       setCategory('');
       
-      alert('Tipografía agregada exitosamente');
     } catch (error) {
-      alert('Error al agregar la tipografía');
+      throw error;
     }
   }
 

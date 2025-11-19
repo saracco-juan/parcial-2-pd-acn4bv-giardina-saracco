@@ -1,10 +1,9 @@
 import FormAddFont from "../FormAddFont/FormAddFont";
 import Table from "../table/table";
-import { FontsService } from './../../services/fonts';
+import { FontsService } from "./../../services/fonts";
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  
   const [fonts, setFonts] = useState([]);
 
   const fetchFonts = async () => {
@@ -24,26 +23,29 @@ const Dashboard = () => {
     try {
       const created = await FontsService.createFont(newFont);
       setFonts([...fonts, created]);
-    } catch (error) {
-      console.error("Error adding font:", error);
+      alert("Tipografía agregada exitosamente");
+    } catch (error) {      
+      alert(error.message);
     }
   };
 
   const handleDeleteFont = async (id) => {
     try {
       await FontsService.deleteFont(id);
-      setFonts(fonts.filter(font => font.id !== id));
+      setFonts(fonts.filter((font) => font.id !== id));
+      alert("Tipografía eliminada exitosamente");
     } catch (error) {
-      console.error("Error deleting font:", error);
+      alert(error.message);
     }
   };
 
   const handleUpdateFont = async (id, updatedData) => {
     try {
       const updated = await FontsService.updateFont(id, updatedData);
-      setFonts(fonts.map(font => font.id === id ? updated : font));
+      setFonts(fonts.map((font) => (font.id === id ? updated : font)));
+      alert("Tipografía actualizada exitosamente");
     } catch (error) {
-      console.error("Error updating font:", error);
+      alert(error.message);
     }
   };
 
@@ -76,7 +78,6 @@ const Dashboard = () => {
 
           <div className="lg:col-span-2">
             <div className="mb-6 flex items-center justify-between">
-
               {/* Buscador y filtros */}
 
               <h2 className="text-2xl font-bold">Tipografías Registradas</h2>
@@ -107,8 +108,8 @@ const Dashboard = () => {
             {/* Cards Tipografias */}
 
             <div>
-              <Table 
-                fonts={fonts} 
+              <Table
+                fonts={fonts}
                 onDelete={handleDeleteFont}
                 onUpdate={handleUpdateFont}
               />
