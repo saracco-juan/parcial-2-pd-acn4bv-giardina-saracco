@@ -75,6 +75,60 @@ app.post('/api/fonts', async(req, res) => {
   }
 });
 
+app.put('/api/fonts/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    
+    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
+    const tipografias = JSON.parse(data);
+    
+    const index = tipografias.findIndex(t => t.id === id);
+    
+    if (index === -1) {
+      return res.status(404).json({ message: "Tipografía no encontrada" });
+    }
+    
+    tipografias[index] = {
+      ...tipografias[index],
+      name: req.body.name || tipografias[index].name,
+      size: req.body.size || tipografias[index].size,
+      style: req.body.style || tipografias[index].style,
+      weight: req.body.weight || tipografias[index].weight,
+      category: req.body.category || tipografias[index].category
+    };
+    
+    await fs.promises.writeFile(tipografiasPath, JSON.stringify(tipografias, null, 2));
+    
+    res.json(tipografias[index]);
+  } catch (error) {
+    res.status(500).json({ message: "Error al actualizar la tipografía", error: error.message });
+  }
+});
+
+app.delete('/api/fonts/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    
+    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
+    const tipografias = JSON.parse(data);
+    
+    const index = tipografias.findIndex(t => t.id === id);
+    
+    if (index === -1) {
+      return res.status(404).json({ message: "Tipografía no encontrada" });
+    }
+    
+    const tipografiaEliminada = tipografias[index];
+    tipografias.splice(index, 1);
+    
+    await fs.promises.writeFile(tipografiasPath, JSON.stringify(tipografias, null, 2));
+    
+    res.json({ message: "Tipografía eliminada correctamente", font: tipografiaEliminada });
+  } catch (error) {
+    res.status(500).json({ message: "Error al eliminar la tipografía", error: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
