@@ -22,23 +22,23 @@ const validateFontData = (req, res, next) => {
   const { name, size, style, weight, category } = req.body;
   
   if (!name || typeof name !== 'string' || name.trim() === '') {
-    return res.status(400).json({ message: "El campo 'name' es requerido y debe ser texto válido" });
+    return res.status(400).json({ message: "El campo 'Nombre' es requerido y debe ser texto válido" });
   }
   
-  if (!size || typeof size !== 'string' || size.trim() === '') {
-    return res.status(400).json({ message: "El campo 'size' es requerido y debe ser un numero positivo" });
+  if (!size || typeof size !== 'string' || size.trim() === '' || isNaN(parseInt(size)) || parseInt(size) <= 0) {
+    return res.status(400).json({ message: "El campo 'Tamaño' es requerido y debe ser un numero positivo" });
   }
   
   if (!style || typeof style !== 'string') {
-    return res.status(400).json({ message: "El campo 'style' es requerido" });
+    return res.status(400).json({ message: "El campo 'Estilo' es requerido" });
   }
   
   if (!weight || typeof weight !== 'string') {
-    return res.status(400).json({ message: "El campo 'weight' es requerido" });
+    return res.status(400).json({ message: "El campo 'Grosor' es requerido" });
   }
   
   if (!category || typeof category !== 'string') {
-    return res.status(400).json({ message: "El campo 'category' es requerido" });
+    return res.status(400).json({ message: "El campo 'Categoría' es requerido" });
   }
   
   next();
