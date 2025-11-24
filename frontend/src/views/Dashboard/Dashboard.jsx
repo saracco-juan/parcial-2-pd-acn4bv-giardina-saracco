@@ -29,7 +29,7 @@ const Dashboard = () => {
       const created = await FontsService.createFont(newFont);
       setFonts([...fonts, created]);
       alert("Tipografía agregada exitosamente");
-    } catch (error) {      
+    } catch (error) {
       alert(error.message);
     }
   };
@@ -60,44 +60,15 @@ const Dashboard = () => {
   const currentFonts = fonts.slice(indexOfFirstFont, indexOfLastFont);
 
   return (
-    <div className="bg-gray-950 text-gray-100 min-h-screen">
-
-      {/* FormAddFont */}
-
+    <div className="bg-gray-950 text-gray-100 p-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           <FormAddFont onAddFont={handleAddFont} />
 
           <div className="lg:col-span-2">
             <div className="mb-6 flex items-center justify-between">
-              {/* Buscador y filtros */}
-
               <h2 className="text-2xl font-bold">Tipografías Registradas</h2>
-              <div className="flex items-center gap-2">
-                <input
-                  type="search"
-                  placeholder="Buscar tipografía..."
-                  className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
             </div>
-
-            <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-              <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium whitespace-nowrap">
-                Todas (24)
-              </button>
-              <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm whitespace-nowrap transition-colors">
-                Modernas (8)
-              </button>
-              <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm whitespace-nowrap transition-colors">
-                Contemporáneas (10)
-              </button>
-              <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm whitespace-nowrap transition-colors">
-                Clásicas (6)
-              </button>
-            </div>
-
-            {/* Cards Tipografias */}
 
             <div>
               <Table
@@ -107,10 +78,8 @@ const Dashboard = () => {
               />
             </div>
 
-            {/* paginado */}
-
-            <Pagination 
-              item = "tipografías"
+            <Pagination
+              item="tipografías"
               currentPage={currentPage}
               totalItems={fonts.length}
               itemsPerPage={itemsPerPage}

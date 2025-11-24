@@ -7,8 +7,7 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="bg-[#1a1d2e] text-white font-sans min-h-screen">
-
+    <div className="bg-[#030712] text-white font-sans min-h-screen">
       {/* Main */}
       <main className="max-w-7xl mx-auto px-6 py-10">
         {/* Categorías */}
@@ -46,7 +45,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
         {/* Tipografías en tendencias */}
         <section className="mb-12">
           <div className="mb-6">
@@ -116,7 +114,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-
         {/* Prueba de fuente */}
         <section className="mb-12">
           <p className="text-gray-400 text-sm mb-4">
@@ -175,8 +172,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-
-        {/* Inspiración semanal */}
+        {/* Inspiración semanal
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-8">Inspiración semanal</h2>
           <div className="space-y-4">
@@ -221,8 +217,7 @@ const Home = () => {
               </svg>
             </a>
           </div>
-        </section>
-
+        </section> */}
       </main>
 
       {showModal && (
@@ -262,16 +257,6 @@ const Home = () => {
           </div>
         </div>
       )}
-
-      {/* Footer */}
-      <footer className="bg-card-bg mt-20">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-amarillo mb-4">GLYPHA</h2>
-            <p className="text-gray-400">Encuentra tu tipografía ideal</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

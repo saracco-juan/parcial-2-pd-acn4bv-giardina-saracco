@@ -16,11 +16,10 @@ const Header = () => {
             <h1 className="text-3xl font-bold tracking-tight">GLYPHA</h1>
             <p className="text-sm mt-1">¡Vamos a encontrar tu tipografía ideal!</p>
           </div>
-          <nav aria-label="Main navigation">
+          <nav >
             <Link
               to={target.to}
-              className="bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
-              aria-label={`Navegar a ${target.label}`}
+              className="bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-600 transition-colors"
             >
               {target.label}
             </Link>
