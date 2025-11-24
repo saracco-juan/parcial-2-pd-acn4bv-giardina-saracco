@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import FormSelect from '../Select/FormSelect';
+import FormInput from '../Input/FormInput';
+import { Form } from 'react-router-dom';
 
 const FormAddFont = ({ onAddFont }) => {
 
@@ -65,18 +67,13 @@ const FormAddFont = ({ onAddFont }) => {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
             
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Nombre de la Tipografía
-            </label>
-            <input
-              value={name}
-              onChange={(e) => {setName(e.target.value)}} 
-              type="text" 
-              placeholder="Ingrese el nombre de la tipografia"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
-          </div>
+
+          <FormInput
+            value={name}
+            onChange={setName}
+            type="text"
+            placeholder="Ingrese el nombre de la tipografia"
+          />
             
           <FormSelect
             label="Categoría"
@@ -85,19 +82,15 @@ const FormAddFont = ({ onAddFont }) => {
             options={CATEGORIES}
             placeholder="Selecciona una categoría"
           />
-            
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Tamaño
-            </label>
-            <input
-              value={size}
-              onChange={(e) => {setSize(e.target.value)}} 
-              type="number" 
-              placeholder="Ingrese el tamaño en px"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
-          </div>
+
+          <FormInput
+            value={size}
+            onChange={setSize}
+            type="number"
+            placeholder="Ingrese el tamaño en px"
+          />
+             
+          
             
           <FormSelect
             label="Estilo"
