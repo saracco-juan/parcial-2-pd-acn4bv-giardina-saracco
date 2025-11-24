@@ -3,9 +3,13 @@ import FormAddFont from "../../components/FormAddFont/FormAddFont";
 import Table from "../../components/table/table";
 import { FontsService } from "../../services/fonts";
 import { useEffect, useState } from "react";
+import { Pagination } from "../../components/Pagination/Pagination";
 
 const Dashboard = () => {
   const [fonts, setFonts] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const fetchFonts = async () => {
     try {
@@ -49,6 +53,11 @@ const Dashboard = () => {
       alert(error.message);
     }
   };
+
+  // Calcular las tipografías para la página actual
+  const indexOfLastFont = currentPage * itemsPerPage;
+  const indexOfFirstFont = indexOfLastFont - itemsPerPage;
+  const currentFonts = fonts.slice(indexOfFirstFont, indexOfLastFont);
 
   return (
     <div className="bg-gray-950 text-gray-100 min-h-screen">
@@ -109,7 +118,7 @@ const Dashboard = () => {
 
             <div>
               <Table
-                fonts={fonts}
+                fonts={currentFonts}
                 onDelete={handleDeleteFont}
                 onUpdate={handleUpdateFont}
               />
@@ -117,28 +126,13 @@ const Dashboard = () => {
 
             {/* paginado */}
 
-            <div className="mt-8 flex items-center justify-between">
-              <p className="text-sm text-gray-400">
-                Mostrando 1-6 de 24 tipografías
-              </p>
-              <div className="flex gap-2">
-                <button className="px-3 py-2 bg-gray-800 text-gray-500 rounded-lg text-sm cursor-not-allowed">
-                  Anterior
-                </button>
-                <button className="px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium">
-                  1
-                </button>
-                <button className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition-colors">
-                  2
-                </button>
-                <button className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition-colors">
-                  3
-                </button>
-                <button className="px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition-colors">
-                  Siguiente
-                </button>
-              </div>
-            </div>
+            <Pagination 
+              item = "tipografías"
+              currentPage={currentPage}
+              totalItems={fonts.length}
+              itemsPerPage={itemsPerPage}
+              onPageChange={setCurrentPage}
+            />
           </div>
         </div>
       </div>
