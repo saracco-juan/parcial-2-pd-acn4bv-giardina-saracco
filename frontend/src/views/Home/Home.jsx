@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FontsService } from "../../services/fonts";
 import TrendingFonts from "../../components/TrendingFonts/TrendingFonts";
+import { useFonts } from "../../hooks/useFonts";
 
 const Home = () => {
   const [inputText, setInputText] = useState("");
   const [displayText, setDisplayText] = useState("AåBbCc\n#9½\nƒ%£©∑∅!");
   const [fontFamily, setFontFamily] = useState("");
-  const [fonts, setFonts] = useState([]);
   const [favoriteFonts, setFavoriteFonts] = useState([]);
+
+  const { fonts } = useFonts();
 
   const toggleFavorite = () => {
     if (!fontFamily) return;
@@ -24,24 +26,11 @@ const Home = () => {
   };
 
 
-  const fetchFonts = async () => {
-    try {
-      const data = await FontsService.getAllFonts();
-      setFonts(data);
-    } catch (error) {
-      console.error("Error fetching fonts:", error);
-    }
-  };
-
   useEffect(() => {
     const saved = localStorage.getItem("favoriteFonts");
     if (saved) {
       setFavoriteFonts(JSON.parse(saved));
     }
-  }, []);
-
-  useEffect(() => {
-    fetchFonts();
   }, []);
 
   return (
