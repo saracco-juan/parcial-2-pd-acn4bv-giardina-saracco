@@ -5,3 +5,4 @@ firebase.json
 
 # node
 node_modules/
+/generated/prisma
