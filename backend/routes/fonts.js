@@ -44,9 +44,9 @@ const validateFontData = (req, res, next) => {
 router.get('/', async (req, res) => {
   try {
 
-    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
-
-    const tipografias = JSON.parse(data);
+    const tipografias = await prisma.font.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
 
     res.json(tipografias);
   } catch (error) {
