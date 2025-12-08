@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import FormAddFont from "../../components/FormAddFont/FormAddFont";
+import FormFont from "../../components/FormAddFont/FormFont";
 import Table from "../../components/table/Table";
 import { useState } from "react";
 import { Pagination } from "../../components/Pagination/Pagination";
@@ -22,7 +22,7 @@ const Dashboard = () => {
     <div className="bg-gray-950 text-gray-100 p-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
-          <FormAddFont 
+          <FormFont 
             onAddFont={handleAddFont} 
             onUpdateFont={handleUpdateFont} 
             fontToEdit={fontToEdit}
