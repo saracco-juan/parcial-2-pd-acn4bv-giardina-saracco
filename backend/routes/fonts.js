@@ -108,23 +108,14 @@ router.put('/:id', validateFontData, async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
+    
     const id = parseInt(req.params.id);
-    
-    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
-    const tipografias = JSON.parse(data);
-    
-    const index = tipografias.findIndex(t => t.id === id);
-    
-    if (index === -1) {
-      return res.status(404).json({ message: "Tipografía no encontrada" });
-    }
-    
-    const tipografiaEliminada = tipografias[index];
-    tipografias.splice(index, 1);
-    
-    await fs.promises.writeFile(tipografiasPath, JSON.stringify(tipografias, null, 2));
-    
-    res.json({ message: "Tipografía eliminada correctamente", font: tipografiaEliminada });
+
+    const deletedFont = await prisma.font.delete({
+      where: { id }
+    });
+
+    res.json({ message: "Tipografía eliminada correctamente", font: deletedFont });
   } catch (error) {
     res.status(500).json({ message: "Error al eliminar la tipografía", error: error.message });
   }
