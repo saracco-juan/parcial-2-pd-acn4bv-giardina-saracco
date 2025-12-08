@@ -23,12 +23,7 @@ const Header = () => {
             >
               {target.label}
             </Link>
-            <Link
-              to="/login"
-              className="bg-white text-black border-2 border-black px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors"
-            >
-              Login
-            </Link>
+
           </nav>
         </div>
       </div>
