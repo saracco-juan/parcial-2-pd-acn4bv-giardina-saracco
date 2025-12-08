@@ -3,6 +3,8 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
+const { prisma } = require('../lib/prisma');
+
 
 const tipografiasPath = path.join(__dirname, '../data', 'tipografias.json');
 
@@ -42,9 +44,9 @@ const validateFontData = (req, res, next) => {
 router.get('/', async (req, res) => {
   try {
 
-    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
-
-    const tipografias = JSON.parse(data);
+    const tipografias = await prisma.font.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
 
     res.json(tipografias);
   } catch (error) {
@@ -57,25 +59,16 @@ router.get('/', async (req, res) => {
 
 router.post('/', validateFontData, async(req, res) => {
   try {
-    
-    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
-    const tipografias = JSON.parse(data);
-    
-    
-    const nuevaTipografia = {
-      id: tipografias.length + 1,
-      name: req.body.name,
-      size: req.body.size,
-      style: req.body.style,
-      weight: req.body.weight,
-      category: req.body.category
-    };
-    
-    
-    tipografias.push(nuevaTipografia);
-    
-    
-    await fs.promises.writeFile(tipografiasPath, JSON.stringify(tipografias));
+   
+    const nuevaTipografia = await prisma.font.create({
+      data: {
+        name: req.body.name,
+        size: req.body.size,
+        style: req.body.style,
+        weight: req.body.weight,
+        category: req.body.category
+      }
+    });
     
     res.status(201).json(nuevaTipografia);
   } catch (error) {
@@ -115,23 +108,14 @@ router.put('/:id', validateFontData, async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
+    
     const id = parseInt(req.params.id);
-    
-    const data = await fs.promises.readFile(tipografiasPath, 'utf-8');
-    const tipografias = JSON.parse(data);
-    
-    const index = tipografias.findIndex(t => t.id === id);
-    
-    if (index === -1) {
-      return res.status(404).json({ message: "Tipografía no encontrada" });
-    }
-    
-    const tipografiaEliminada = tipografias[index];
-    tipografias.splice(index, 1);
-    
-    await fs.promises.writeFile(tipografiasPath, JSON.stringify(tipografias, null, 2));
-    
-    res.json({ message: "Tipografía eliminada correctamente", font: tipografiaEliminada });
+
+    const deletedFont = await prisma.font.delete({
+      where: { id }
+    });
+
+    res.json({ message: "Tipografía eliminada correctamente", font: deletedFont });
   } catch (error) {
     res.status(500).json({ message: "Error al eliminar la tipografía", error: error.message });
   }
