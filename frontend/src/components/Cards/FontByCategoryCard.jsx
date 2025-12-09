@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../Button/Button'
+import { Link } from 'react-router-dom'
 
 const FontByCategoryCard = ({font}) => {
   return (
@@ -15,16 +16,13 @@ const FontByCategoryCard = ({font}) => {
                 <p className="text-sm text-gray-500">{font.style} | {font.weight}</p>
             </div>
             <div className="flex items-center gap-3">
-                <button className="w-10 h-10 rounded-full border border-gray-700 hover:border-primary flex items-center justify-center text-gray-400 hover:text-primary transition-all" title="Más información">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </button>
-                <Button icon={
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                }/>
+                <Link to={`/testfont?fontId=${font.id}`}>
+                    <Button icon={
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    }/>
+                </Link>
             </div>
         </div>
     </div>

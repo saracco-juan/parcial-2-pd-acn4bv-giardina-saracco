@@ -5,6 +5,7 @@ import Login from "./views/login/Login";
 import Layout from "./views/Layout/Layout";
 import Register from "./views/Register/Register";
 import Category from "./views/Category/Category";
+import TestFont from "./views/Font/TestFont";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/testfont" element={<TestFont />} />
       </Route>
     </Routes>
   );
