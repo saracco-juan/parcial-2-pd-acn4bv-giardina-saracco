@@ -1,14 +1,21 @@
 
 import React, { use, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Navigate } from 'react-router-dom';
 import { useFonts } from '../../hooks/useFonts';
+import FontTester from '../../components/FontTester/FontTester';
 
 const TestFont = () => {
 
     const [searchParams] = useSearchParams();
     const fontId = searchParams.get('fontId');
 
+    if (!fontId) {
+        return <Navigate to="/" replace />;
+    }
+
     const { fonts, fetchFontById } = useFonts();
+
+    const font = fonts[0];
 
     useEffect(() => {
 
@@ -16,11 +23,8 @@ const TestFont = () => {
             fetchFontById(fontId);
         }
 
-    }, [fontId, fetchFontById]);
+    }, [font, fetchFontById]);
 
-    if (!fontId) {
-        return <Navigate to="/" replace />;
-    }
 
     if (!fonts || fonts.length === 0) {
         return (
@@ -30,7 +34,6 @@ const TestFont = () => {
         );
     }
 
-    const font = fonts[0];
 
     return (
         <div className="bg-[#030712] text-white font-sans min-h-screen">
@@ -57,47 +60,13 @@ const TestFont = () => {
                     
                 </div>
 
-                <section className="space-y-6 mb-16">
-                    <h2 className="text-2xl font-bold text-primary">PROBAR FUENTE</h2>
-                    <div className="bg-dark-light border border-gray-800 rounded-lg p-8">
-                        <textarea 
-                            id="fontTester"
-                            className="w-full bg-transparent text-white text-4xl outline-none resize-none border-none focus:ring-0" 
-                            style={{fontFamily: font.name, minHeight: '200px'}}
-                            placeholder="Escribe aquí para probar la fuente...">El rápido zorro marrón salta sobre el perro perezoso</textarea>
-                        
-                        
-                        <div className="flex items-center gap-6 mt-6 pt-6 border-t border-gray-800">
-                            <div className="flex items-center gap-3">
-                                <label className="text-sm text-gray-400">Tamaño:</label>
-                                <input 
-                                    type="range" 
-                                    id="fontSize" 
-                                    min="16" 
-                                    max="96" 
-                                    defaultValue="36"
-                                    className="w-32 accent-primary"/>
-                                <span id="fontSizeValue" className="text-sm text-gray-400 w-12">36px</span>
-                            </div>
-                            
-                            <div className="flex items-center gap-3">
-                                <label className="text-sm text-gray-400">Peso:</label>
-                                <select 
-                                    id="fontWeight" 
-                                    className="bg-dark-light border border-gray-700 text-white px-4 py-2 rounded focus:border-primary focus:outline-none"
-                                    style={{fontFamily: 'Inter, sans-serif'}}>
-                                    <option value="300">Light (300)</option>
-                                    <option value="400">Regular (400)</option>
-                                    <option value="500">Medium (500)</option>
-                                    <option value="600">SemiBold (600)</option>
-                                    <option value="700">Bold (700)</option>
-                                    <option value="800">ExtraBold (800)</option>
-                                    <option value="900">Black (900)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <FontTester
+                    fontFamily={font.name}
+                    showFavoriteButton={false}
+                    showClearButton={false}
+                    placeholder="Escribe aquí para probar la fuente..."
+                    defaultText="El rápido zorro marrón salta sobre el perro perezoso"
+                />
 
                 
                 <section className="space-y-6 mb-16">
@@ -108,9 +77,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">Light (300)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 300}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 300}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -119,9 +87,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">Regular (400)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 400}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 400}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -130,9 +97,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">Medium (500)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 500}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 500}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -141,9 +107,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">SemiBold (600)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 600}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 600}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -152,9 +117,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">Bold (700)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 700}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 700}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -163,9 +127,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">ExtraBold (800)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 800}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 800}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -173,9 +136,8 @@ const TestFont = () => {
                         <div className="bg-dark-light border border-gray-800 p-6 hover:border-yellow-500 transition-colors">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm text-gray-400">Black (900)</span>
-                                <span className="text-xs text-gray-500">Aa Bb Cc 123</span>
                             </div>
-                            <p className="text-3xl" style={{fontFamily: 'Inter, sans-serif', fontWeight: 900}}>
+                            <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 900}}>
                                 El rápido zorro marrón salta sobre el perro perezoso
                             </p>
                         </div>
@@ -188,25 +150,25 @@ const TestFont = () => {
                         <div className="space-y-8">
                             <div>
                                 <p className="text-sm text-gray-400 mb-3">Mayúsculas</p>
-                                <p className="text-3xl tracking-wider" style={{fontFamily: 'Inter, sans-serif', fontWeight: 500}}>
+                                <p className="text-3xl tracking-wider" style={{fontFamily: font.name, fontWeight: 500}}>
                                     A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z
                                 </p>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-400 mb-3">Minúsculas</p>
-                                <p className="text-3xl tracking-wider" style={{fontFamily: 'Inter, sans-serif', fontWeight: 500}}>
+                                <p className="text-3xl tracking-wider" style={{fontFamily: font.name, fontWeight: 500}}>
                                     a b c d e f g h i j k l m n ñ o p q r s t u v w x y z
                                 </p>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-400 mb-3">Números</p>
-                                <p className="text-3xl tracking-wider" style={{fontFamily: 'Inter, sans-serif', fontWeight: 500}}>
+                                <p className="text-3xl tracking-wider" style={{fontFamily: font.name, fontWeight: 500}}>
                                     0 1 2 3 4 5 6 7 8 9
                                 </p>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-400 mb-3">Símbolos</p>
-                                <p className="text-3xl tracking-wider" style={{fontFamily: 'Inter, sans-serif', fontWeight: 500}}>
+                                <p className="text-3xl tracking-wider" style={{fontFamily: font.name, fontWeight: 500}}>
                                     ! @ # $ % ^ & * ( ) - _ = + [ ] { } ; : ' " , . / ? \ | ` ~
                                 </p>
                             </div>
