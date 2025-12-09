@@ -4,6 +4,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import Login from "./views/login/Login";
 import Layout from "./views/Layout/Layout";
 import Register from "./views/Register/Register";
+import Category from "./views/Category/Category";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/category" element={<Category />} />
       </Route>
     </Routes>
   );
