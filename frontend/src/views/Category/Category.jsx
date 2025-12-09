@@ -1,5 +1,5 @@
 import React, { use, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Navigate } from 'react-router-dom';
 import FontByCategoryCard from '../../components/Cards/FontByCategoryCard';
 import { useFonts } from '../../hooks/useFonts';
 
@@ -10,6 +10,10 @@ const Category = () => {
 
     const { fetchFontsByCategory, fonts } = useFonts();
 
+    if (!category) {
+        return <Navigate to="/" replace />;
+    }
+
     useEffect(() => {
         if (category) {
             fetchFontsByCategory(category);
@@ -19,7 +23,7 @@ const Category = () => {
     return (
         <div className="bg-[#030712] text-white font-sans min-h-screen">
             
-            <main className="max-w-4xl mx-auto px-6 py-12 ">
+            <div className="max-w-4xl mx-auto px-6 py-12 ">
                 <div className="space-y-12">
                         
                     <div className="space-y-4">
@@ -43,7 +47,7 @@ const Category = () => {
                         
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     )
 }

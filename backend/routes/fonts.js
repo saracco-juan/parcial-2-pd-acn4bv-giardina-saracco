@@ -1,16 +1,12 @@
 import express from "express";
-import fs from "fs";
-import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { prisma } from "../lib/prisma.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const router = express.Router();
 
-const tipografiasPath = path.join(__dirname, "../data", "tipografias.json");
+
 
 const validateFontData = (req, res, next) => {
   const { name, size, style, weight, category } = req.body;
@@ -65,6 +61,35 @@ router.get("/", async (req, res) => {
     res
       .status(500)
       .json({ message: "Error al leer las tipografías", error: error.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+
+    const id = parseInt(req.params.id);
+
+    const tipografia = await prisma.font.findUnique({
+      where: { id },
+    });
+
+    if (!tipografia) {
+
+      return res
+        .status(404)
+        .json({ message: "Tipografía no encontrada" });
+
+    }
+    res.json(tipografia);
+
+  } catch (error) {
+
+    res
+      .status(500)
+      .json({
+        message: "Error al obtener la tipografía por ID",
+        error: error.message,
+      });
   }
 });
 

@@ -18,6 +18,27 @@ const getAllFonts = async () => {
   }
 };
 
+const getFontById = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/fonts/${id}`);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data;
+
+  } catch (error) {
+
+    console.error("Error al obtener la tipografía por ID:", error);
+
+    throw error;
+  }
+};
+
 const getFontsByCategory = async (category) => {
   try {
     
@@ -101,4 +122,5 @@ export const FontsService = {
   updateFont,
   deleteFont,
   getFontsByCategory,
+  getFontById,
 };

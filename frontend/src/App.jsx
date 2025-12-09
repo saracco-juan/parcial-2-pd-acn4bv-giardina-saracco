@@ -7,6 +7,7 @@ import Register from "./views/Register/Register";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 import Category from "./views/Category/Category";
+import TestFont from "./views/Font/TestFont";
 
 function App() {
   return (
@@ -33,6 +34,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+            
+        <Route
+          path="/testfont"
+          element={
+            <ProtectedRoute>
+              <TestFont />
             </ProtectedRoute>
           }
         />
