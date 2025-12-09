@@ -6,7 +6,7 @@ const TestFont = () => {
     const [searchParams] = useSearchParams();
     const fontId = searchParams.get('fontId');
 
-    
+
 
     return (
         <div className="bg-[#030712] text-white font-sans min-h-screen">
@@ -18,7 +18,7 @@ const TestFont = () => {
                             <h1 className="text-7xl font-bold text-primary leading-tight tracking-tight" style={{fontFamily: 'Inter, sans-serif'}}>
                                 INTER
                             </h1>
-                            <p className="text-xl text-gray-400">Sans Serif | 9 variantes</p>
+                            <p className="text-xl text-gray-400">Sans Serif</p>
                         </div>
                         
                         
@@ -31,24 +31,7 @@ const TestFont = () => {
                     </div>
 
                     
-                    <div className="grid grid-cols-4 gap-6 pt-6 border-t border-gray-800">
-                        <div>
-                            <p className="text-sm text-gray-500 mb-1">Diseñador</p>
-                            <p className="text-white font-medium">Rasmus Andersson</p>
-                        </div>
-                        <div>
-                            <p className="text-sm text-gray-500 mb-1">Año</p>
-                            <p className="text-white font-medium">2016</p>
-                        </div>
-                        <div>
-                            <p className="text-sm text-gray-500 mb-1">Categoría</p>
-                            <p className="text-white font-medium">Modernas</p>
-                        </div>
-                        <div>
-                            <p className="text-sm text-gray-500 mb-1">Licencia</p>
-                            <p className="text-white font-medium">Open Source</p>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <section className="space-y-6 mb-16">
@@ -205,18 +188,6 @@ const TestFont = () => {
                                 </p>
                             </div>
                         </div>
-                    </div>
-                </section>
-
-                <section className="space-y-6">
-                    <h2 className="text-2xl font-bold text-primary">ACERCA DE ESTA FUENTE</h2>
-                    <div className="bg-dark-light border border-gray-800 rounded-lg p-8">
-                        <p className="text-gray-300 leading-relaxed">
-                            Inter es una familia tipográfica cuidadosamente diseñada para pantallas de computadora. Las características incluyen una altura x alta para ayudar a la legibilidad de formas en minúsculas y mayúsculas, y una amplia gama de pesos y estilos. La familia tipográfica está diseñada pensando en la funcionalidad y la legibilidad en interfaces de usuario.
-                        </p>
-                        <p className="text-gray-300 leading-relaxed mt-4">
-                            Inter presenta características OpenType avanzadas como cifras tabulares, fracciones, ligaduras contextuales y alternativas estilísticas. Es ideal para diseño de interfaces, aplicaciones web y móviles, así como para proyectos editoriales digitales.
-                        </p>
                     </div>
                 </section>
 
