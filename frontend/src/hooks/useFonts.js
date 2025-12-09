@@ -9,7 +9,7 @@ export const useFonts = () => {
       const data = await FontsService.getAllFonts();
       setFonts(data);
     } catch (error) {
-      console.error("Error fetching fonts:", error);
+      console.error("Error al buscar las fuentes:", error);
     }
   };
 
@@ -20,7 +20,19 @@ export const useFonts = () => {
       setFonts(data);
 
     } catch (error) {
-      console.error("Error fetching fonts by category:", error);
+      console.error("Error al buscar las fuentes por categoría:", error);
+    }
+  };
+
+  const fetchFontById = async (id) => {
+    try {
+
+      const data = await FontsService.getFontById(id);
+
+      setFonts([data]);
+      
+    } catch (error) {
+      console.error("Error al buscar la fuente por ID:", error);
     }
   };
 
@@ -63,6 +75,7 @@ export const useFonts = () => {
     handleAddFont,
     handleDeleteFont,
     handleUpdateFont,
-    fetchFontsByCategory
+    fetchFontsByCategory,
+    fetchFontById,
   };
 };

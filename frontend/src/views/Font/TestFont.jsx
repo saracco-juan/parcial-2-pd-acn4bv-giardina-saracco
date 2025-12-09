@@ -1,12 +1,36 @@
-import React from 'react'
+
+import React, { use, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom';
+import { useFonts } from '../../hooks/useFonts';
 
 const TestFont = () => {
 
     const [searchParams] = useSearchParams();
     const fontId = searchParams.get('fontId');
 
+    const { fonts, fetchFontById } = useFonts();
 
+    useEffect(() => {
+
+        if (fontId) {
+            fetchFontById(fontId);
+        }
+
+    }, [fontId, fetchFontById]);
+
+    if (!fontId) {
+        return <Navigate to="/" replace />;
+    }
+
+    if (!fonts || fonts.length === 0) {
+        return (
+            <div className="bg-[#030712] text-white font-sans min-h-screen flex items-center justify-center">
+                <p className="text-xl text-gray-400">Cargando fuente...</p>
+            </div>
+        );
+    }
+
+    const font = fonts[0];
 
     return (
         <div className="bg-[#030712] text-white font-sans min-h-screen">
@@ -15,14 +39,13 @@ const TestFont = () => {
                 <div className="space-y-8 mb-16">
                     <div className="flex items-start justify-between">
                         <div className="space-y-3">
-                            <h1 className="text-7xl font-bold text-primary leading-tight tracking-tight" style={{fontFamily: 'Inter, sans-serif'}}>
-                                INTER
+                            <h1 className="text-7xl font-bold text-primary leading-tight tracking-tight" style={{fontFamily: font.name || 'Inter, sans-serif'}}>
+                                {font.name}
                             </h1>
-                            <p className="text-xl text-gray-400">Sans Serif</p>
+                            <p className="text-xl text-gray-400">{font.category || 'Sans Serif'}</p>
                         </div>
                         
-                        
-                        <button id="favoriteBtn" className="flex items-center gap-2 px-6 py-3 border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-dark font-bold transition-all rounded">
+                        <button id="favoriteBtn" className="flex items-center gap-2 px-6 py-3 border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-bold transition-all rounded">
                             <svg id="heartIcon" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
@@ -40,7 +63,7 @@ const TestFont = () => {
                         <textarea 
                             id="fontTester"
                             className="w-full bg-transparent text-white text-4xl outline-none resize-none border-none focus:ring-0" 
-                            style={{fontFamily: 'Inter, sans-serif', minHeight: '200px'}}
+                            style={{fontFamily: font.name, minHeight: '200px'}}
                             placeholder="Escribe aquí para probar la fuente...">El rápido zorro marrón salta sobre el perro perezoso</textarea>
                         
                         
