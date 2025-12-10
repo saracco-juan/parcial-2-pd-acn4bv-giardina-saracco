@@ -6,6 +6,8 @@ import FontTester from '../../components/FontTester/FontTester';
 
 const TestFont = () => {
 
+    const TEXT_SAMPLE = "Glypha, encontra tu tipografia ideal aquí.";
+
     const [searchParams] = useSearchParams();
     const fontId = searchParams.get('fontId');
 
@@ -66,7 +68,7 @@ const TestFont = () => {
                     showClearButton={false}
                     showControls={true}
                     placeholder="Escribe aquí para probar la fuente..."
-                    defaultText="El rápido zorro marrón salta sobre el perro perezoso"
+                    defaultText={TEXT_SAMPLE}
                 />
 
                 
@@ -80,7 +82,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">Light (300)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 300}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
 
@@ -90,7 +92,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">Regular (400)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 400}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
 
@@ -100,7 +102,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">Medium (500)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 500}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
 
@@ -110,7 +112,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">SemiBold (600)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 600}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
 
@@ -120,7 +122,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">Bold (700)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 700}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
 
@@ -130,7 +132,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">ExtraBold (800)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 800}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
 
@@ -139,7 +141,7 @@ const TestFont = () => {
                                 <span className="text-sm text-gray-400">Black (900)</span>
                             </div>
                             <p className="text-3xl" style={{fontFamily: font.name, fontWeight: 900}}>
-                                El rápido zorro marrón salta sobre el perro perezoso
+                                {TEXT_SAMPLE}
                             </p>
                         </div>
                     </div>

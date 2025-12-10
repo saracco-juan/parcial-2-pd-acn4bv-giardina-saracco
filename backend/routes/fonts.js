@@ -2,7 +2,7 @@ import express from "express";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { prisma } from "../lib/prisma.js";
-
+import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -181,6 +181,45 @@ router.get("/category/:category", async (req, res) => {
         message: "Error al obtener las tipografías por categoría",
         error: error.message,
       });
+  }
+});
+
+// Agregar fuente a favoritos del usuario
+router.post("/:id/favorite", authMiddleware, async (req, res) => {
+  try {
+    const fontId = parseInt(req.params.id);
+    const userId = req.user.id;
+
+    
+    const font = await prisma.font.findUnique({
+      where: { id: fontId },
+    });
+
+    if (!font) {
+      return res.status(404).json({ message: "Tipografía no encontrada" });
+    }
+
+    
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        fonts: {
+          connect: { id: fontId },
+        },
+      },
+    });
+
+    res.json({ message: "Tipografía agregada a favoritos exitosamente" });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      message: "Error al agregar a favoritos",
+
+      error: error.message,
+    });
+
   }
 });
 
