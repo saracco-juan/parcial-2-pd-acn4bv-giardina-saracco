@@ -17,16 +17,22 @@ const TestFont = () => {
         return <Navigate to="/" replace />;
     }
 
-    const { fonts, fetchFontById, handleAddFontToFavorites, handleDeleteFontFromFavorites } = useFonts();
+    const { fonts, fetchFontById, handleAddFontToFavorites, handleDeleteFontFromFavorites, handleCheckIfFontIsFavorite } = useFonts();
 
     const font = fonts[0];
 
     useEffect(() => {
+        const loadFontData = async () => {
+            if (fontId) {
+                await fetchFontById(fontId);
+                
 
-        if (fontId) {
-            fetchFontById(fontId);
-        }
+                const isInFavorites = await handleCheckIfFontIsFavorite(fontId);
+                setIsFavorite(isInFavorites);
+            }
+        };
 
+        loadFontData();
     }, [fontId]);
 
     const handleBtnFavorite = async () => {

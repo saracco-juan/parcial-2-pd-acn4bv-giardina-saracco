@@ -92,6 +92,19 @@ export const useFonts = () => {
     }
   };
 
+  const handleCheckIfFontIsFavorite = async (id) => {
+    try {
+      const isFavorite = await FontsService.checkIfFontIsFavorite(id);
+
+      return isFavorite;
+
+    } catch (error) {
+
+      alert(error.message);
+
+      return false;
+    }
+  };
   return {
     fonts,
     handleAddFont,
@@ -101,5 +114,6 @@ export const useFonts = () => {
     fetchFontById,
     handleAddFontToFavorites,
     handleDeleteFontFromFavorites,
+    handleCheckIfFontIsFavorite,
   };
 };

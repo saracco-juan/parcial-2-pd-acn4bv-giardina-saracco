@@ -173,6 +173,36 @@ const deleteFontFromFavorites = async (fontId) => {
   }
 };
 
+const checkIfFontIsFavorite = async (fontId) => {
+  try {
+
+    if (!TOKEN) {
+      throw new Error("No hay token de autenticación");
+    }
+
+    const response = await fetch(`${API_BASE_URL}/fonts/${fontId}/is-favorite`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data.isFavorite;
+
+  } catch (error) {
+
+    throw error;
+
+  }
+};
+
 
 export const FontsService = {
   getAllFonts,
@@ -183,4 +213,5 @@ export const FontsService = {
   getFontById,
   addFontToFavorites,
   deleteFontFromFavorites,
+  checkIfFontIsFavorite,
 };

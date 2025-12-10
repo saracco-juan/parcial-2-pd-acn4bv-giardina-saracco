@@ -184,6 +184,32 @@ router.get("/category/:category", async (req, res) => {
   }
 });
 
+//Comprobar si una fuente está en favoritos
+router.get("/:id/is-favorite", authMiddleware, async (req, res) => {
+  try {
+    const fontId = parseInt(req.params.id);
+
+    const userId = req.user.id;
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { fonts: true },
+    });
+
+    const isFavorite = user.fonts.some((font) => font.id === fontId);
+
+    res.json({ isFavorite });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "Error al comprobar si la tipografía está en favoritos",
+      error: error.message,
+    });
+
+  }
+});
+
 // Agregar fuente a favoritos
 router.post("/:id/favorite", authMiddleware, async (req, res) => {
   try {
