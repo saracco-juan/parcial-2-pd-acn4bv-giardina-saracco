@@ -184,7 +184,7 @@ router.get("/category/:category", async (req, res) => {
   }
 });
 
-// Agregar fuente a favoritos del usuario
+// Agregar fuente a favoritos
 router.post("/:id/favorite", authMiddleware, async (req, res) => {
   try {
     const fontId = parseInt(req.params.id);
@@ -216,6 +216,43 @@ router.post("/:id/favorite", authMiddleware, async (req, res) => {
     res.status(500).json({
 
       message: "Error al agregar a favoritos",
+
+      error: error.message,
+    });
+
+  }
+});
+
+//Eliminar fuente de favoritos
+router.delete("/:id/favorite", authMiddleware, async (req, res) => {
+  try {
+    const fontId = parseInt(req.params.id);
+    const userId = req.user.id;
+
+    const font = await prisma.font.findUnique({
+      where: { id: fontId },
+    });
+
+    if (!font) {
+      return res.status(404).json({ message: "Tipografía no encontrada" });
+    }
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        fonts: {
+          disconnect: { id: fontId },
+        },
+      },
+    });
+
+    res.json({ message: "Tipografía eliminada de favoritos exitosamente" });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      message: "Error al eliminar de favoritos",
 
       error: error.message,
     });
