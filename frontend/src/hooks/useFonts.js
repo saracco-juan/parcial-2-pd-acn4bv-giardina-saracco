@@ -70,6 +70,17 @@ export const useFonts = () => {
     }
   };
 
+  const handleAddFontToFavorites = async (id) => {
+    try {
+
+      await FontsService.addFontToFavorites(id);
+
+      alert("Tipografía agregada a favoritos exitosamente");
+
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return {
     fonts,
     handleAddFont,
@@ -77,5 +88,6 @@ export const useFonts = () => {
     handleUpdateFont,
     fetchFontsByCategory,
     fetchFontById,
+    handleAddFontToFavorites,
   };
 };

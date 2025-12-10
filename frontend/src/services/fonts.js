@@ -116,6 +116,34 @@ const deleteFont = async (id) => {
     }
 };
 
+const addFontToFavorites = async (fontId) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("No hay token de autenticación");
+    }
+
+    const response = await fetch(`${API_BASE_URL}/fonts/${fontId}/favorite`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const FontsService = {
   getAllFonts,
   createFont,
@@ -123,4 +151,5 @@ export const FontsService = {
   deleteFont,
   getFontsByCategory,
   getFontById,
+  addFontToFavorites,
 };
