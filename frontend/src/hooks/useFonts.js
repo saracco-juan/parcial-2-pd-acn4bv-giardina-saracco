@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { FontsService } from '../services/fonts';
+import { useToast } from '../context/ToastContext';
 
 export const useFonts = () => {
   const [fonts, setFonts] = useState([]);
+  const { showToast } = useToast();
 
-  const fetchFonts = async () => {
+  const fetchFonts = useCallback(async () => {
     try {
       const data = await FontsService.getAllFonts();
       setFonts(data);
     } catch (error) {
       console.error("Error al buscar las fuentes:", error);
     }
-  };
+  }, []);
 
-  const fetchFontsByCategory = async (category) => {
+  const fetchFontsByCategory = useCallback(async (category) => {
     try {
       
       const data = await FontsService.getFontsByCategory(category);
@@ -22,9 +24,9 @@ export const useFonts = () => {
     } catch (error) {
       console.error("Error al buscar las fuentes por categoría:", error);
     }
-  };
+  }, []);
 
-  const fetchFontById = async (id) => {
+  const fetchFontById = useCallback(async (id) => {
     try {
 
       const data = await FontsService.getFontById(id);
@@ -34,19 +36,19 @@ export const useFonts = () => {
     } catch (error) {
       console.error("Error al buscar la fuente por ID:", error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchFonts();
-  }, []);
+  }, [fetchFonts]);
 
   const handleAddFont = async (newFont) => {
     try {
       const created = await FontsService.createFont(newFont);
       setFonts([...fonts, created]);
-      alert("Tipografía agregada exitosamente");
+      showToast("Tipografía agregada exitosamente", "success");
     } catch (error) {      
-      alert(error.message);
+      showToast(error.message || "Error al agregar tipografía", "error");
     }
   };
 
@@ -54,9 +56,9 @@ export const useFonts = () => {
     try {
       await FontsService.deleteFont(id);
       setFonts(fonts.filter((font) => font.id !== id));
-      alert("Tipografía eliminada exitosamente");
+      showToast("Tipografía eliminada exitosamente", "success");
     } catch (error) {
-      alert(error.message);
+      showToast(error.message || "Error al eliminar tipografía", "error");
     }
   };
 
@@ -64,9 +66,9 @@ export const useFonts = () => {
     try {
       const updated = await FontsService.updateFont(id, updatedData);
       setFonts(fonts.map((font) => (font.id === id ? updated : font)));
-      alert("Tipografía actualizada exitosamente");
+      showToast("Tipografía actualizada exitosamente", "success");
     } catch (error) {
-      alert(error.message);
+      showToast(error.message || "Error al actualizar tipografía", "error");
     }
   };
 
@@ -75,10 +77,10 @@ export const useFonts = () => {
 
       await FontsService.addFontToFavorites(id);
 
-      alert("Tipografía agregada a favoritos exitosamente");
+      showToast("Tipografía agregada a favoritos exitosamente", "success");
 
     } catch (error) {
-      alert(error.message);
+      showToast(error.message || "Error al agregar a favoritos", "error");
     }
   };
 
@@ -86,9 +88,9 @@ export const useFonts = () => {
     try {
       await FontsService.deleteFontFromFavorites(id);
 
-      alert("Tipografía eliminada de favoritos exitosamente");
+      showToast("Tipografía eliminada de favoritos exitosamente", "success");
     } catch (error) {
-      alert(error.message);
+      showToast(error.message || "Error al eliminar de favoritos", "error");
     }
   };
 
@@ -100,7 +102,7 @@ export const useFonts = () => {
 
     } catch (error) {
 
-      alert(error.message);
+      showToast(error.message || "Error al verificar favorito", "error");
 
       return false;
     }

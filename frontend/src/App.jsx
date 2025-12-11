@@ -6,12 +6,15 @@ import Layout from "./views/Layout/Layout";
 import Register from "./views/Register/Register";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
+import AdminRoute from "./components/AdminRoute/AdminRoute";
 import Category from "./views/Category/Category";
 import TestFont from "./views/Font/TestFont";
+import { ToastProvider } from "./context/ToastContext";
 
 function App() {
   return (
-    <Routes>
+    <ToastProvider>
+      <Routes>
       <Route element={<Layout />}>
         <Route
           path="/"
@@ -32,9 +35,9 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            <AdminRoute>
               <Dashboard />
-            </ProtectedRoute>
+            </AdminRoute>
           }
         />
             
@@ -75,6 +78,7 @@ function App() {
         />
       </Route>
     </Routes>
+    </ToastProvider>
   );
 }
 

@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/FormInput";
 import { AuthService } from "../../services/auth";
+import { useToast } from "../../context/ToastContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -39,10 +41,10 @@ const Login = () => {
       const response = await AuthService.login(formData);
       
       // Mostrar mensaje de éxito
-      console.log("Login exitoso:", response.user);
+      showToast(`¡Bienvenido, ${response.user.name}!`, "success");
       
-      // Redirigir al dashboard
-      navigate("/dashboard");
+      // Redirigir a home
+      navigate("/home");
     } catch (err) {
       setError(err.message || "Error al iniciar sesión");
     } finally {

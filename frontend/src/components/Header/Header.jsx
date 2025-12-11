@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth";
+import { useToast } from "../../context/ToastContext";
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const onDashboard = location.pathname.startsWith("/dashboard");
   const onHome = location.pathname.startsWith("/home");
 
@@ -16,6 +18,7 @@ const Header = () => {
 
   const handleLogout = () => {
     AuthService.logout();
+    showToast("Sesión cerrada exitosamente", "info");
     navigate("/login");
   };
 
