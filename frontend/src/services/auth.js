@@ -106,10 +106,6 @@ const getToken = () => {
   return localStorage.getItem("token");
 };
 
-/**
- * Verifica si el usuario actual es administrador
- * Role 2 = Admin, Role 1 = Usuario normal
- */
 const isAdmin = () => {
   const user = getCurrentUser();
   return user && user.role === 2;

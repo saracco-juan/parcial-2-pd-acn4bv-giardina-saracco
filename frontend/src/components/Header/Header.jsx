@@ -12,7 +12,6 @@ const Header = () => {
   const currentUser = AuthService.getCurrentUser();
   const isAdmin = AuthService.isAdmin();
   
-  // Ocultar botones de navegación en login y register
   const isAuthPage = location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/";
 
   const handleLogout = () => {
@@ -34,7 +33,6 @@ const Header = () => {
           </div>
           {!isAuthPage && (
             <nav className="flex items-center gap-4">
-              {/* Botón Home: visible para todos los usuarios autenticados cuando no estén en /home */}
               {isAuthenticated && !onHome && (
                 <Link
                   to="/home"
@@ -44,7 +42,6 @@ const Header = () => {
                 </Link>
               )}
 
-              {/* Botón Admin: solo visible para usuarios admin cuando no estén en /dashboard */}
               {isAuthenticated && isAdmin && !onDashboard && (
                 <Link
                   to="/dashboard"
@@ -54,7 +51,6 @@ const Header = () => {
                 </Link>
               )}
 
-              {/* Botón Cerrar Sesión: visible para todos los usuarios autenticados */}
               {isAuthenticated ? (
                 <button
                   onClick={handleLogout}
