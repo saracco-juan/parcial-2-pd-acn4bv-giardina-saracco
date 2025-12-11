@@ -6,76 +6,76 @@ const fontsSeed = [
     size: '16px',
     style: 'normal',
     weight: '400',
-    category: 'Sans-serif'
+    category: 'Moderna'
   },
   {
     name: 'Helvetica',
     size: '16px',
     style: 'normal',
     weight: '400',
-    category: 'Sans-serif'
+    category: 'Moderna'
   },
   {
     name: 'Verdana',
     size: '14px',
     style: 'normal',
     weight: '400',
-    category: 'Sans-serif'
+    category: 'Elegante'
   },
   {
     name: 'Times New Roman',
     size: '16px',
     style: 'normal',
     weight: '400',
-    category: 'Serif'
+    category: 'Elegante'
   },
   {
     name: 'Georgia',
     size: '16px',
     style: 'normal',
     weight: '400',
-    category: 'Serif'
+    category: 'Clasica'
   },
   {
     name: 'Courier New',
     size: '14px',
     style: 'normal',
     weight: '400',
-    category: 'Monospace'
+    category: 'Clasica'
   },
   {
     name: 'Courier',
     size: '14px',
     style: 'normal',
     weight: '400',
-    category: 'Monospace'
+    category: 'Creativa'
   },
   {
     name: 'Comic Sans MS',
     size: '16px',
     style: 'normal',
     weight: '400',
-    category: 'Cursive'
+    category: 'Creativa'
   },
   {
     name: 'Trebuchet MS',
     size: '16px',
     style: 'normal',
     weight: '400',
-    category: 'Sans-serif'
+    category: 'Moderna'
   },
   {
     name: 'Impact',
     size: '20px',
     style: 'normal',
     weight: '700',
-    category: 'Display'
+    category: 'Moderna'
   }
 ];
 
 async function seedFonts() {
   try {
-    console.log('🌱 Iniciando seed de fuentes...\n');
+    console.log('Iniciando seed de fuentes...\n');
 
     // Contar fuentes existentes
     const existingCount = await prisma.font.count();
