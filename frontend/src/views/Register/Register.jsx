@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/FormInput";
 import { AuthService } from "../../services/auth";
+import { useToast } from "../../context/ToastContext";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,10 +48,10 @@ const Register = () => {
       const response = await AuthService.register(formData);
       
       // Mostrar mensaje de éxito
-      console.log("Usuario registrado:", response.user);
+      showToast("¡Usuario registrado exitosamente!", "success");
       
-      // Redirigir al dashboard o home
-      navigate("/dashboard");
+      // Redirigir a home
+      navigate("/home");
     } catch (err) {
       setError(err.message || "Error al registrar usuario");
     } finally {

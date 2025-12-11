@@ -6,7 +6,7 @@ const PublicRoute = ({ children }) => {
   const isAuthenticated = AuthService.isAuthenticated();
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/home" replace />;
   }
   return children;
 };
